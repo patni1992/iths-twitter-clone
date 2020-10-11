@@ -7,6 +7,7 @@ import {
 } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import Posts from './components/Posts';
+import AddPost from './components/AddPost';
 import Navbar from './components/Navbar';
 import "./App.css";
 
@@ -19,9 +20,15 @@ const fabStyle = {
 
 function App() {
   const [posts, setPosts] = useState([]);
-  const fetchPosts = () => {
-    return fetch("http://localhost:8080/posts").then((resp) => resp.json());
-  };
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const fetchPosts = () =>  fetch("http://localhost:8080/posts").then((resp) => resp.json());
+  const addPost = (newPost) =>  fetch("http://localhost:8080/posts", {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({message: newPost})
+  }).then((resp) => resp.json());
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,6 +39,12 @@ function App() {
     fetchData();
   }, []);
 
+  const submitPost = async (newPost) => {
+   const response = await addPost(newPost);
+   setPosts([response, ...posts])
+   setIsModalOpen(false);
+  }
+
   return (
     <div className="App">
       <Navbar />
@@ -39,8 +52,9 @@ function App() {
         <Box m={10}>
           <Posts posts={posts} />
         </Box>
+        <AddPost open={isModalOpen} onClose={() => setIsModalOpen(false)} onAdd={submitPost} />
       </Container>
-      <Fab style={fabStyle} color="primary" aria-label="add">
+      <Fab onClick={() => setIsModalOpen(true)} style={fabStyle} color="primary" aria-label="add">
         <AddIcon />
       </Fab>
     </div>
