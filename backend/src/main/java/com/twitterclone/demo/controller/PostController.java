@@ -3,9 +3,7 @@ package com.twitterclone.demo.controller;
 import com.twitterclone.demo.Post;
 import com.twitterclone.demo.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,5 +20,12 @@ public class PostController {
     @GetMapping
     public List<Post> getPosts() {
         return this.postRepository.findAll();
+    }
+
+    @PostMapping
+    public Post addPost(@RequestBody Post post) {
+        Post newPost = postRepository.save(post);
+
+        return newPost;
     }
 }
