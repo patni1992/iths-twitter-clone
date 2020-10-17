@@ -1,4 +1,5 @@
-package com.twitterclone.demo;
+package com.twitterclone.demo.model;
+
 
 import org.springframework.data.annotation.CreatedDate;
 import javax.persistence.Entity;
@@ -7,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.GenerationType;
 import javax.persistence.PrePersist;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -15,6 +17,7 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotNull()
     @Column(nullable = false)
     private String message;
 

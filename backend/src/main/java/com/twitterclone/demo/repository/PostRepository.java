@@ -1,6 +1,6 @@
 package com.twitterclone.demo.repository;
 
-import com.twitterclone.demo.Post;
+import com.twitterclone.demo.model.Post;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

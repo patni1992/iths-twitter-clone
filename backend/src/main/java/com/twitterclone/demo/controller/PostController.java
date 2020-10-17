@@ -1,10 +1,12 @@
 package com.twitterclone.demo.controller;
 
-import com.twitterclone.demo.Post;
+import com.twitterclone.demo.model.Post;
 import com.twitterclone.demo.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -23,7 +25,7 @@ public class PostController {
     }
 
     @PostMapping
-    public Post addPost(@RequestBody Post post) {
+    public Post addPost(@Valid @RequestBody Post post) {
         Post newPost = postRepository.save(post);
 
         return newPost;
