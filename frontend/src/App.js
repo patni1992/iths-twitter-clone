@@ -18,11 +18,13 @@ const fabStyle = {
   position: "fixed",
 };
 
+const url = process.env.REACT_APP_API_URL
+
 function App() {
   const [posts, setPosts] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const fetchPosts = () =>  fetch("http://localhost:8080/posts").then((resp) => resp.json());
-  const addPost = (newPost) =>  fetch("http://localhost:8080/posts", {
+  const fetchPosts = () =>  fetch(`${url}/posts`).then((resp) => resp.json());
+  const addPost = (newPost) =>  fetch(`${url}/posts`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
